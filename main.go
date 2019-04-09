@@ -280,22 +280,23 @@ func showTotalImageSize(c *cli.Context) error {
 			return cli.NewExitError(err.Error(), 1)
 		}
 
+		sizeInfo := make(map[string]int64)
+
 		for _, tag := range tags {
 			manifest, err := r.ImageManifest(imgName, tag)
 			if err != nil {
 				return cli.NewExitError(err.Error(), 1)
 			}
 
-			sizeInfo := make(map[string]int64)
-
 			for _, layer := range manifest.Layers {
 				sizeInfo[layer.Digest] = layer.Size
 			}
 
-			for _, size := range sizeInfo {
-				totalSize += size
-			}
 		}
+		for _, size := range sizeInfo {
+			totalSize += size
+		}
+
 		fmt.Printf("%d %s\n", totalSize, imgName)
 	}
 	return nil
