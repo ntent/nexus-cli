@@ -1,7 +1,7 @@
 package main
 
 import (
-	"log"
+// 	"log"
 	"sort"
 	"strconv"
 	"strings"
@@ -43,7 +43,7 @@ func extractNumberFromString(str string) (num int) {
 	// If the operation fails , do the same strSlice thow it to the end.
 	if err != nil {
 		return 1 << 32
-		//log.Fatal(err)
+		//log.Info(err)
 	}
 	return num
 }
