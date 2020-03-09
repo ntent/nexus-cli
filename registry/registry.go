@@ -137,7 +137,7 @@ func (r Registry) ImageManifest(image string, tag string) (ImageManifest, error)
 }
 
 func (r Registry) DeleteImageByTag(image string, tag string) error {
-	sha, err := r.getImageSHA(image, tag)
+	sha, err := r.GetImageSHA(image, tag)
 	if err != nil {
 		return err
 	}
@@ -166,7 +166,7 @@ func (r Registry) DeleteImageByTag(image string, tag string) error {
 	return nil
 }
 
-func (r Registry) getImageSHA(image string, tag string) (string, error) {
+func (r Registry) GetImageSHA(image string, tag string) (string, error) {
 	client := &http.Client{}
 
 	url := fmt.Sprintf("%s/repository/%s/v2/%s/manifests/%s", r.Host, r.Repository, image, tag)
