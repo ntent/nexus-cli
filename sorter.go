@@ -1,7 +1,7 @@
 package main
 
 import (
-	"log"
+// 	"log"
 	"sort"
 	"strconv"
 	"strings"
@@ -40,8 +40,10 @@ func extractNumberFromString(str string) (num int) {
 	}
 
 	num, err := strconv.Atoi(strings.Join(strSlice, ""))
+	// If the operation fails , do the same strSlice thow it to the end.
 	if err != nil {
-		log.Fatal(err)
+		return 1 << 32
+		//log.Info(err)
 	}
 	return num
 }
