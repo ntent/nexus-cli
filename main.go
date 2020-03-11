@@ -5,7 +5,7 @@ import (
 	"html/template"
 	"os"
 
-	"github.com/mlabouardy/nexus-cli/registry"
+	"github.com/ntent/nexus-cli/registry"
 	"github.com/urfave/cli"
 )
 
