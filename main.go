@@ -61,6 +61,21 @@ func main() {
 					},
 				},
 				{
+					Name:  "sha",
+					Usage: "Show image sha",
+					Flags: []cli.Flag{
+						cli.StringFlag{
+							Name: "name, n",
+						},
+						cli.StringFlag{
+							Name: "tag, t",
+						},
+					},
+					Action: func(c *cli.Context) error {
+						return showImageSha(c)
+					},
+				},
+				{
 					Name:  "info",
 					Usage: "Show image details",
 					Flags: []cli.Flag{
@@ -194,6 +209,27 @@ func listTagsByImage(c *cli.Context) error {
 	}
 	fmt.Printf("There are %d images for %s\n", len(tags), imgName)
 	return nil
+}
+
+func showImageSha(c *cli.Context) error {
+	var imgName = c.String("name")
+	var tag = c.String("tag")
+	r, err := registry.NewRegistry()
+	if err != nil {
+		return cli.NewExitError(err.Error(), 1)
+	}
+	if imgName == "" || tag == "" {
+		cli.ShowSubcommandHelp(c)
+	}
+
+	sha, err := r.GetImageSHA(imgName, tag)
+	if err != nil {
+		return cli.NewExitError(err.Error(), 1)
+	}
+
+	fmt.Printf("%s\n",sha)
+
+ return nil
 }
 
 func showImageInfo(c *cli.Context) error {
